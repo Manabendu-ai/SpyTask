@@ -1,13 +1,16 @@
 package riku.spytask.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -34,20 +37,27 @@ public class Tasks {
     @Column(name = "status", nullable=false)
     private TaskPriority priority;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    private TaskList taskList;
+
     @Column(name = "created_at", nullable=false)
     private LocalDateTime createdAt;
     
     @Column(name = "updated_at", nullable=false)
     private LocalDateTime updatedAt;
 
-    public Tasks(UUID id, String title, String description, LocalDateTime dueDate, TaskStatus status,
-            TaskPriority priority, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Tasks(
+            UUID id, String title, String description, LocalDateTime dueDate,
+            TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime createdAt,
+            LocalDateTime updatedAt
+    ) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.status = status;
         this.priority = priority;
+        this.taskList = taskList;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -100,6 +110,14 @@ public class Tasks {
         this.priority = priority;
     }
 
+    public TaskList getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -117,73 +135,32 @@ public class Tasks {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((title == null) ? 0 : title.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((dueDate == null) ? 0 : dueDate.hashCode());
-        result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + ((priority == null) ? 0 : priority.hashCode());
-        result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Tasks tasks = (Tasks) o;
+        return Objects.equals(id, tasks.id) && Objects.equals(title, tasks.title) && Objects.equals(description, tasks.description)
+                && Objects.equals(dueDate, tasks.dueDate) && status == tasks.status && priority == tasks.priority
+                && Objects.equals(taskList, tasks.taskList) && Objects.equals(createdAt, tasks.createdAt)
+                && Objects.equals(updatedAt, tasks.updatedAt);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Tasks other = (Tasks) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (title == null) {
-            if (other.title != null)
-                return false;
-        } else if (!title.equals(other.title))
-            return false;
-        if (description == null) {
-            if (other.description != null)
-                return false;
-        } else if (!description.equals(other.description))
-            return false;
-        if (dueDate == null) {
-            if (other.dueDate != null)
-                return false;
-        } else if (!dueDate.equals(other.dueDate))
-            return false;
-        if (status != other.status)
-            return false;
-        if (priority != other.priority)
-            return false;
-        if (createdAt == null) {
-            if (other.createdAt != null)
-                return false;
-        } else if (!createdAt.equals(other.createdAt))
-            return false;
-        if (updatedAt == null) {
-            if (other.updatedAt != null)
-                return false;
-        } else if (!updatedAt.equals(other.updatedAt))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, title, description, dueDate, status, priority, taskList, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
-        return "Tasks [id=" + id + ", title=" + title + ", description=" + description + ", dueDate=" + dueDate
-                + ", status=" + status + ", priority=" + priority + ", createdAt=" + createdAt + ", updatedAt="
-                + updatedAt + "]";
+        return "Tasks{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate=" + dueDate +
+                ", status=" + status +
+                ", priority=" + priority +
+                ", taskList=" + taskList +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
-
-    
-    
 }

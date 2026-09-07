@@ -37,6 +37,8 @@ public class TaskListManagerImpl implements TaskListManager {
 
     @Override
     public TaskListDTO toTaskListDTO(TaskList taskList) {
-        return null;
+        return new TaskListDTO(
+
+        )
     }
 }

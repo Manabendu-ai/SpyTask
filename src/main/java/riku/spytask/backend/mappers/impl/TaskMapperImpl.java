@@ -24,7 +24,14 @@ public class TaskMapperImpl implements TaskManager {
 
     @Override
     public TaskDTO toDTO(Tasks tasks) {
-        return null;
+        return new TaskDTO(
+                tasks.getId(),
+                tasks.getTitle(),
+                tasks.getDescription(),
+                tasks.getDueDate(),
+                tasks.getPriority(),
+                tasks.getStatus()
+        );
     }
 
 }

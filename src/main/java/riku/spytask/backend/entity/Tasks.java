@@ -46,6 +46,8 @@ public class Tasks {
     @Column(name = "updated_at", nullable=false)
     private LocalDateTime updatedAt;
 
+    public Tasks(){}
+
     public Tasks(
             UUID id, String title, String description, LocalDateTime dueDate,
             TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime createdAt,

@@ -24,7 +24,7 @@ public class TaskListController {
     }
 
 
-    @GetMapping
+    @GetMapping("/all")
     public List<TaskListDTO> listTaskLists(){
         return taskListService.listTaskLists()
                 .stream()

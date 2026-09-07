@@ -1,9 +1,9 @@
 package riku.spytask.backend.mappers;
 
-import org.springframework.scheduling.config.Task;
 import riku.spytask.backend.dto.TaskDTO;
+import riku.spytask.backend.entity.Tasks;
 
 public interface TaskManager {
-    Task toTask(TaskDTO taskDTO);
-    TaskDTO toDTO(Task task);
+    Tasks toTask(TaskDTO taskDTO);
+    TaskDTO toDTO(Tasks tasks);
 }

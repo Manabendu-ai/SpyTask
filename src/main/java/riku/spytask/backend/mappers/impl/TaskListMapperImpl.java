@@ -4,17 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import riku.spytask.backend.dto.TaskListDTO;
 import riku.spytask.backend.entity.TaskList;
-import riku.spytask.backend.mappers.TaskListManager;
+import riku.spytask.backend.mappers.TaskListMapper;
 
 import java.util.Optional;
 
 @Component
-public class TaskListManagerImpl implements TaskListManager {
+public class TaskListMapperImpl implements TaskListMapper {
 
     private final TaskMapperImpl taskMapper;
 
     @Autowired
-    public TaskListManagerImpl(TaskMapperImpl taskMapper) {
+    public TaskListMapperImpl(TaskMapperImpl taskMapper) {
         this.taskMapper = taskMapper;
     }
 

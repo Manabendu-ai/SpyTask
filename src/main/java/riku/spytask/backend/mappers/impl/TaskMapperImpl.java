@@ -1,9 +1,11 @@
 package riku.spytask.backend.mappers.impl;
 
+import org.springframework.stereotype.Component;
 import riku.spytask.backend.dto.TaskDTO;
 import riku.spytask.backend.entity.Tasks;
 import riku.spytask.backend.mappers.TaskManager;
 
+@Component
 public class TaskMapperImpl implements TaskManager {
     @Override
     public Tasks toTask(TaskDTO taskDTO) {
@@ -24,6 +26,5 @@ public class TaskMapperImpl implements TaskManager {
     public TaskDTO toDTO(Tasks tasks) {
         return null;
     }
-
 
 }

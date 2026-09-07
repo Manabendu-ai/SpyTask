@@ -34,7 +34,7 @@ public class Tasks {
     @Column(name = "status", nullable=false)
     private TaskStatus status;
 
-    @Column(name = "status", nullable=false)
+    @Column(name = "priority", nullable=false)
     private TaskPriority priority;
 
     @ManyToOne(fetch=FetchType.LAZY)

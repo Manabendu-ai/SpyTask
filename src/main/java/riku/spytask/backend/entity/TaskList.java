@@ -1,22 +1,22 @@
 package riku.spytask.backend.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="tasks")
-public class Tasks {
-    
+@Entity 
+@Table(name="task_list")
+public class TaskList {
     @Id 
     @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name = "id", updatable=false, nullable=false)
@@ -28,17 +28,11 @@ public class Tasks {
     @Column(name = "description", nullable=false)
     private String description;
 
-    @Column(name="due_date")
-    private LocalDateTime dueDate;
-
-    @Column(name = "status", nullable=false)
-    private TaskStatus status;
-
-    @Column(name = "status", nullable=false)
-    private TaskPriority priority;
-
-    @ManyToOne(fetch=FetchType.LAZY)
-    private TaskList taskList;
+    @OneToMany(mappedBy="taskList", cascade={
+        CascadeType.REMOVE,
+        CascadeType.PERSIST
+    })
+    private List<Tasks> tasks;
 
     @Column(name = "created_at", nullable=false)
     private LocalDateTime createdAt;
@@ -46,20 +40,13 @@ public class Tasks {
     @Column(name = "updated_at", nullable=false)
     private LocalDateTime updatedAt;
 
-    public Tasks(){}
+    public TaskList(){}
 
-    public Tasks(
-            UUID id, String title, String description, LocalDateTime dueDate,
-            TaskStatus status, TaskPriority priority, TaskList taskList, LocalDateTime createdAt,
-            LocalDateTime updatedAt
-    ) {
+    public TaskList(UUID id, String title, String description, List<Tasks> tasks, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.dueDate = dueDate;
-        this.status = status;
-        this.priority = priority;
-        this.taskList = taskList;
+        this.tasks = tasks;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -88,36 +75,12 @@ public class Tasks {
         this.description = description;
     }
 
-    public LocalDateTime getDueDate() {
-        return dueDate;
+    public List<Tasks> getTasks() {
+        return tasks;
     }
 
-    public void setDueDate(LocalDateTime dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public TaskStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(TaskStatus status) {
-        this.status = status;
-    }
-
-    public TaskPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(TaskPriority priority) {
-        this.priority = priority;
-    }
-
-    public TaskList getTaskList() {
-        return taskList;
-    }
-
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
+    public void setTasks(List<Tasks> tasks) {
+        this.tasks = tasks;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -139,28 +102,26 @@ public class Tasks {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Tasks tasks = (Tasks) o;
-        return Objects.equals(id, tasks.id) && Objects.equals(title, tasks.title) && Objects.equals(description, tasks.description)
-                && Objects.equals(dueDate, tasks.dueDate) && status == tasks.status && priority == tasks.priority
-                && Objects.equals(taskList, tasks.taskList) && Objects.equals(createdAt, tasks.createdAt)
-                && Objects.equals(updatedAt, tasks.updatedAt);
+        TaskList taskList = (TaskList) o;
+        return Objects.equals(id, taskList.id) && Objects.equals(title, taskList.title)
+                && Objects.equals(description, taskList.description)
+                && Objects.equals(tasks, taskList.tasks)
+                && Objects.equals(createdAt, taskList.createdAt)
+                && Objects.equals(updatedAt, taskList.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, dueDate, status, priority, taskList, createdAt, updatedAt);
+        return Objects.hash(id, title, description, tasks, createdAt, updatedAt);
     }
 
     @Override
     public String toString() {
-        return "Tasks{" +
+        return "TaskList{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", dueDate=" + dueDate +
-                ", status=" + status +
-                ", priority=" + priority +
-                ", taskList=" + taskList +
+                ", tasks=" + tasks +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';

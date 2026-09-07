@@ -6,5 +6,8 @@
 <p align="center">
 A Spring boot application designed for users to organize tasks, set priorities and track the progress.
 </p>
+<div align="center">
+<img src="src/main/resources/static/Spy-Task-domain.png" width="80%">
+</div>
 
 more to come....

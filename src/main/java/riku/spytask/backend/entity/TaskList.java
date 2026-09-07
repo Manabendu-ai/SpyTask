@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.springframework.scheduling.config.Task;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,10 @@ public class TaskList {
     @Column(name = "description", nullable=false)
     private String description;
 
-    @OneToMany(mappedBy="taskList")
+    @OneToMany(mappedBy="taskList", cascade={
+        CascadeType.REMOVE,
+        CascadeType.PERSIST
+    })
     private List<Task> tasks;
 
     @Column(name = "created_at", nullable=false)

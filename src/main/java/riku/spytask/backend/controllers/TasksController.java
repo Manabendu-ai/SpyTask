@@ -44,4 +44,16 @@ public class TasksController {
     ){
         return mapper.toDTO(service.getTasksById(taskListId, taskId));
     }
+
+    @PutMapping("/")
+    public TaskDTO updateTasks(
+            @PathVariable("task_list_id")UUID id,
+            @RequestBody TaskDTO taskDTO
+    ){
+        return mapper.toDTO(
+                service.updateTasksById(
+                        id, mapper.toTask(taskDTO)
+                )
+        );
+    }
 }

@@ -1,10 +1,9 @@
 package riku.spytask.backend.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import riku.spytask.backend.dto.TaskListDTO;
+import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.mappers.TaskListMapper;
 import riku.spytask.backend.services.TaskListService;
 
@@ -24,11 +23,21 @@ public class TaskListController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public List<TaskListDTO> listTaskLists(){
         return taskListService.listTaskLists()
                 .stream()
                 .map(taskListMapper::toTaskListDTO)
                 .toList();
+    }
+
+    @PostMapping("/")
+    public TaskListDTO createTaskList(
+            @RequestBody TaskListDTO taskListDTO
+    ){
+        return taskListMapper.toTaskListDTO(
+                taskListService.createTaskList(
+                taskListMapper.toTaskList(taskListDTO))
+        );
     }
 }

@@ -1,0 +1,34 @@
+package riku.spytask.backend.controllers;
+
+import org.springframework.web.bind.annotation.*;
+import riku.spytask.backend.dto.TaskDTO;
+import riku.spytask.backend.entity.Tasks;
+import riku.spytask.backend.mappers.TaskMapper;
+import riku.spytask.backend.services.TaskService;
+
+import java.util.UUID;
+
+@RestController
+@RequestMapping(path = "/tasks-lists/{task_list_id}/tasks")
+public class TasksController {
+
+    private final TaskService service;
+    private final TaskMapper mapper;
+
+    public TasksController(TaskService service, TaskMapper mapper) {
+        this.service = service;
+        this.mapper = mapper;
+    }
+
+    @PostMapping("/")
+    public TaskDTO createTask(
+            @PathVariable("task_list_id")UUID id,
+            @RequestBody TaskDTO taskDTO
+            ){
+        return mapper.toDTO(
+                service.createTask(
+                        id, mapper.toTask(taskDTO)
+                )
+        );
+    }
+}

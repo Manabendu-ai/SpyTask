@@ -36,4 +36,12 @@ public class TasksController {
     public List<TaskDTO> getALlTasks(@PathVariable("task_list_id")UUID id){
         return service.getAllTasks(id).stream().map(mapper::toDTO).toList();
     }
+
+    @GetMapping("/{task_id}")
+    public TaskDTO getTaskByID(
+            @PathVariable("task_list_id")UUID taskListId,
+            @PathVariable("task_id")UUID taskId
+    ){
+        return mapper.toDTO(service.getTasksById(taskListId, taskId));
+    }
 }

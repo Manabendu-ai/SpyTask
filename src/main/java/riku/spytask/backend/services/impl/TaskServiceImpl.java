@@ -6,6 +6,7 @@ import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.entity.TaskPriority;
 import riku.spytask.backend.entity.TaskStatus;
 import riku.spytask.backend.entity.Tasks;
+import riku.spytask.backend.exceptions.ResourceNotFoundException;
 import riku.spytask.backend.repository.TaskRepository;
 import riku.spytask.backend.services.TaskService;
 
@@ -54,11 +55,13 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Tasks> getAllTasks(UUID id) {
-        return taskRepository.findByTaskListId(id);
+        return taskRepository.findByTaskListId(id)
+                .orElseThrow(()->new ResourceNotFoundException("Task Not Found!"));
     }
 
     @Override
     public Tasks getTasksById(UUID taskListId, UUID id) {
-        return taskRepository.findByTaskListIdAndId(taskListId, id);
+        return taskRepository.findByTaskListIdAndId(taskListId, id)
+                .orElseThrow(()->new ResourceNotFoundException("Task Not Found!"));
     }
 }

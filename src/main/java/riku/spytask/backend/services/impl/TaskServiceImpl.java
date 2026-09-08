@@ -76,4 +76,10 @@ public class TaskServiceImpl implements TaskService {
         upTasks.setUpdatedAt(LocalDateTime.now());
         return taskRepository.save(upTasks);
     }
+
+    public Tasks deleteByTasksID(UUID taskListId, UUID taskId ){
+        Tasks delTask = getTasksById(taskListId, taskId);
+        taskRepository.deleteByTaskListAndId(taskListId, taskId);
+        return delTask;
+    }
 }

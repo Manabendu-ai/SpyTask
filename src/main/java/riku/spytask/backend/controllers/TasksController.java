@@ -5,6 +5,7 @@ import riku.spytask.backend.dto.TaskDTO;
 import riku.spytask.backend.mappers.TaskMapper;
 import riku.spytask.backend.services.TaskService;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -29,5 +30,10 @@ public class TasksController {
                         id, mapper.toTask(taskDTO)
                 )
         );
+    }
+
+    @GetMapping("/")
+    public List<TaskDTO> getALlTasks(@PathVariable("task_list_id")UUID id){
+        return service.getAllTasks(id).stream().map(mapper::toDTO).toList();
     }
 }

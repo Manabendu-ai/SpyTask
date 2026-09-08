@@ -53,7 +53,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Tasks> getAllTasks() {
-        return taskRepository.findAll();
+    public List<Tasks> getAllTasks(UUID id) {
+        return taskRepository.findByTaskListId(id);
     }
 }

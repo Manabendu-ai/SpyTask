@@ -5,7 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import riku.spytask.backend.dto.ErrorResponse;
+import riku.spytask.backend.exceptions.ErrorResponse;
+import riku.spytask.backend.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,5 +23,18 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({ResourceNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleResourceException(
+            RuntimeException exception,
+            WebRequest request
+    ){
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.NOT_FOUND.value(),
+                exception.getMessage(),
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

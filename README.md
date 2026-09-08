@@ -10,4 +10,11 @@ A Spring boot application designed for users to organize tasks, set priorities a
 <img src="src/main/resources/static/Spy-Task-domain.png" width="80%">
 </div>
 
-more to come....
+## Entity Relationship Diagram
+<div align="center">
+<img src="src/main/resources/static/erd.png" width="60%">
+</div>
+
+<div align="center">
+<img src="src/main/resources/static/restapi.png" width="80%">
+</div>

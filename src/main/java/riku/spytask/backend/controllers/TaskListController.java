@@ -61,4 +61,13 @@ public class TaskListController {
                 )
         );
     }
+
+    @DeleteMapping("/{task_list_id}")
+    public TaskListDTO deleteTaskListByID(
+            @PathVariable("task_list_id") UUID id
+    ){
+        return taskListMapper.toTaskListDTO(
+                taskListService.deleteTaskListByUUID(id)
+        );
+    }
 }

@@ -16,12 +16,10 @@ import java.util.UUID;
 @Service
 public class TaskServiceImpl implements TaskService {
     private final TaskListServiceImpl taskListService;
-    private final TaskService taskService;
     private final TaskRepository taskRepository;
 
-    public TaskServiceImpl(TaskListServiceImpl taskListService, TaskService taskService, TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskListServiceImpl taskListService, TaskRepository taskRepository) {
         this.taskListService = taskListService;
-        this.taskService = taskService;
         this.taskRepository = taskRepository;
     }
 

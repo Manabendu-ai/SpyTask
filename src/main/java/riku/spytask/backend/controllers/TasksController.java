@@ -2,7 +2,6 @@ package riku.spytask.backend.controllers;
 
 import org.springframework.web.bind.annotation.*;
 import riku.spytask.backend.dto.TaskDTO;
-import riku.spytask.backend.entity.Tasks;
 import riku.spytask.backend.mappers.TaskMapper;
 import riku.spytask.backend.services.TaskService;
 

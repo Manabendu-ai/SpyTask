@@ -47,7 +47,6 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public Optional<TaskList> getTaskListByUUID(UUID id) {
-        return Optional.of(taskListRepository.findById(id)
-                .orElseThrow(IllegalAccessError::new));
+        return taskListRepository.findById(id);
     }
 }

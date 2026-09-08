@@ -8,6 +8,8 @@ import riku.spytask.backend.mappers.TaskListMapper;
 import riku.spytask.backend.services.TaskListService;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/tasks-lists")
@@ -39,5 +41,14 @@ public class TaskListController {
                 taskListService.createTaskList(
                 taskListMapper.toTaskList(taskListDTO))
         );
+    }
+
+    @GetMapping("/{task_list_id}")
+    public Optional<TaskListDTO> getTaskListById(
+            @PathVariable("task_list_id") UUID id
+    ){
+        return Optional.ofNullable(taskListMapper.toTaskListDTO(
+                taskListService.getTaskListByUUID(id).get()
+        ));
     }
 }

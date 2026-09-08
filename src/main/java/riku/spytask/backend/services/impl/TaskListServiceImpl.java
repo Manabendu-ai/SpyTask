@@ -6,6 +6,7 @@ import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.repository.TaskListRepository;
 import riku.spytask.backend.services.TaskListService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,6 +31,15 @@ public class TaskListServiceImpl implements TaskListService {
         if(taskList.getTitle() == null || taskList.getTitle().isBlank()){
             throw new IllegalArgumentException("Must enter a Task title");
         }
-        return taskListRepository.save(taskList);
+        return taskListRepository.save(
+                new TaskList(
+                        null,
+                        taskList.getTitle(),
+                        taskList.getDescription(),
+                        null,
+                        LocalDateTime.now(),
+                        LocalDateTime.now()
+                )
+        );
     }
 }

@@ -9,7 +9,6 @@ import riku.spytask.backend.services.TaskListService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -32,7 +31,7 @@ public class TaskListServiceImpl implements TaskListService {
             throw new IllegalArgumentException("taskList with id: "+taskList.getId()+" Already exists!");
         }
         if(taskList.getTitle() == null || taskList.getTitle().isBlank()){
-            throw new IllegalArgumentException("Must enter a Task title");
+            throw new IllegalArgumentException("Must enter a TaskList title");
         }
         return taskListRepository.save(
                 new TaskList(

@@ -1,9 +1,9 @@
 package riku.spytask.backend.services;
 
-import org.springframework.scheduling.config.Task;
+import riku.spytask.backend.entity.Tasks;
 
 import java.util.UUID;
 
 public interface TaskService {
-    Task createTask(UUID taskListId, Task task);
+    Tasks createTask(UUID taskListId, Tasks tasks);
 }

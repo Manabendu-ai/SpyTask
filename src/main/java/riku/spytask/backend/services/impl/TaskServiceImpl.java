@@ -10,6 +10,7 @@ import riku.spytask.backend.repository.TaskRepository;
 import riku.spytask.backend.services.TaskService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,5 +50,10 @@ public class TaskServiceImpl implements TaskService {
                         LocalDateTime.now()
                 )
         );
+    }
+
+    @Override
+    public List<Tasks> getAllTasks() {
+        return taskRepository.findAll();
     }
 }

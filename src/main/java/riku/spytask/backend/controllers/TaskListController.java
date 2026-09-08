@@ -3,12 +3,10 @@ package riku.spytask.backend.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import riku.spytask.backend.dto.TaskListDTO;
-import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.mappers.TaskListMapper;
 import riku.spytask.backend.services.TaskListService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

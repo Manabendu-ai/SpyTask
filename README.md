@@ -15,6 +15,8 @@ A Spring boot application designed for users to organize tasks, set priorities a
 <img src="src/main/resources/static/erd.png" width="60%">
 </div>
 
+
+## RestAPIs Overview
 <div align="center">
 <img src="src/main/resources/static/restapi.png" width="80%">
 </div>

@@ -1,7 +1,7 @@
 package riku.spytask.backend.services.impl;
 
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.entity.TaskPriority;
 import riku.spytask.backend.entity.TaskStatus;
@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
         this.taskRepository = taskRepository;
     }
 
-
+    @Transactional
     @Override
     public Tasks createTask(UUID taskListId, Tasks tasks) {
         TaskList taskList = taskListService.getTaskListByUUID(taskListId);
@@ -65,6 +65,7 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(()->new ResourceNotFoundException("Task Not Found!"));
     }
 
+    @Transactional
     @Override
     public Tasks updateTasksById(UUID taskListId, Tasks tasks) {
         Tasks upTasks = getTasksById(taskListId, tasks.getId());
@@ -77,10 +78,11 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.save(upTasks);
     }
 
+    @Transactional
     @Override
     public Tasks deleteTasksById(UUID taskListId, UUID taskId ){
         Tasks delTask = getTasksById(taskListId, taskId);
-        taskRepository.deleteByTaskListAndId(taskListId, taskId);
+        taskRepository.deleteByTaskListIdAndId(taskListId, taskId);
         return delTask;
     }
 }

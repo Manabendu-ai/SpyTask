@@ -2,6 +2,7 @@ package riku.spytask.backend.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import riku.spytask.backend.entity.TaskList;
 import riku.spytask.backend.exceptions.ResourceNotFoundException;
 import riku.spytask.backend.repository.TaskListRepository;
@@ -24,7 +25,7 @@ public class TaskListServiceImpl implements TaskListService {
     public List<TaskList> listTaskLists() {
         return taskListRepository.findAll();
     }
-
+    @Transactional
     @Override
     public TaskList createTaskList(TaskList taskList) {
         if(taskList.getId() != null){
@@ -50,7 +51,7 @@ public class TaskListServiceImpl implements TaskListService {
         return taskListRepository.findById(id).
                 orElseThrow(()->new ResourceNotFoundException("TaskList with id "+id+" not found!"));
     }
-
+    @Transactional
     @Override
     public TaskList updateTaskListByUUID(UUID id, TaskList taskList) {
         if(taskList.getId() == null){
@@ -62,7 +63,7 @@ public class TaskListServiceImpl implements TaskListService {
         upTaskList.setUpdatedAt(LocalDateTime.now());
         return taskListRepository.save(upTaskList);
     }
-
+    @Transactional
     @Override
     public TaskList deleteTaskListByUUID(UUID id) {
         TaskList reTaskList = getTaskListByUUID(id);

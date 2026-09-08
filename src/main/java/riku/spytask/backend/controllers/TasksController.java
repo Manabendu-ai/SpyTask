@@ -57,7 +57,7 @@ public class TasksController {
         );
     }
 
-    @GetMapping("/{task_id}")
+    @DeleteMapping("/{task_id}")
     public TaskDTO deleteByTaskID(
             @PathVariable("task_list_id")UUID taskListId,
             @PathVariable("task_id")UUID taskId

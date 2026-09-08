@@ -54,6 +54,13 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public TaskList updateTaskListByUUID(UUID id, TaskList taskList) {
-        return null;
+        if(taskList.getId() == null){
+            throw new IllegalArgumentException("TaskList ID not provided!");
+        }
+        TaskList upTaskList = getTaskListByUUID(id);
+        upTaskList.setTitle(taskList.getTitle());
+        upTaskList.setDescription(taskList.getDescription());
+        upTaskList.setUpdatedAt(LocalDateTime.now());
+        return taskListRepository.save(upTaskList);
     }
 }

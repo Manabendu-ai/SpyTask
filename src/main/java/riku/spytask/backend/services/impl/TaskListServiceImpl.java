@@ -3,6 +3,7 @@ package riku.spytask.backend.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import riku.spytask.backend.entity.TaskList;
+import riku.spytask.backend.exceptions.ResourceNotFoundException;
 import riku.spytask.backend.repository.TaskListRepository;
 import riku.spytask.backend.services.TaskListService;
 
@@ -47,20 +48,21 @@ public class TaskListServiceImpl implements TaskListService {
 
     @Override
     public TaskList getTaskListByUUID(UUID id) {
-        return taskListRepository.findById(id);
+        return taskListRepository.findById(id).
+                orElseThrow(()->new ResourceNotFoundException("TaskList with id "+id+" not found!"));
     }
 
-    @Override
-    public TaskList updateTaskListByUUID(UUID id, TaskList taskList) {
-        Optional<TaskList> taskListByUUID = getTaskListByUUID(id);
-        if(taskListByUUID.isPresent()){
-            TaskList upTaskList = taskListByUUID.get();
-            upTaskList.setTitle(taskList.getTitle());
-            upTaskList.setDescription(taskList.getDescription());
-            upTaskList.setDescription(taskList.getDescription());
-            upTaskList.setUpdatedAt(LocalDateTime.now());
-            return taskListRepository.save(upTaskList);
-        }
-        return null;
-    }
+//    @Override
+//    public TaskList updateTaskListByUUID(UUID id, TaskList taskList) {
+//        Optional<TaskList> taskListByUUID = getTaskListByUUID(id);
+//        if(taskListByUUID.isPresent()){
+//            TaskList upTaskList = taskListByUUID.get();
+//            upTaskList.setTitle(taskList.getTitle());
+//            upTaskList.setDescription(taskList.getDescription());
+//            upTaskList.setDescription(taskList.getDescription());
+//            upTaskList.setUpdatedAt(LocalDateTime.now());
+//            return taskListRepository.save(upTaskList);
+//        }
+//        return null;
+//    }
 }

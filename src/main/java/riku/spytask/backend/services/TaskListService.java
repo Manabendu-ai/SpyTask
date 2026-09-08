@@ -9,6 +9,6 @@ import java.util.UUID;
 public interface TaskListService {
     List<TaskList> listTaskLists();
     TaskList createTaskList(TaskList taskList);
-    Optional<TaskList> getTaskListByUUID(UUID id);
+    TaskList getTaskListByUUID(UUID id);
     TaskList updateTaskListByUUID(UUID id, TaskList taskList);
 }

@@ -47,8 +47,10 @@ public class TaskListController {
     public Optional<TaskListDTO> getTaskListById(
             @PathVariable("task_list_id") UUID id
     ){
-        return Optional.ofNullable(taskListMapper.toTaskListDTO(
-                taskListService.getTaskListByUUID(id).get()
-        ));
+        Optional<TaskList> taskListByUUID = taskListService.getTaskListByUUID(id);
+        if(taskListByUUID.isEmpty()){
+            return Optional.empty();
+        }
+        return taskListByUUID.map(taskListMapper::toTaskListDTO);
     }
 }

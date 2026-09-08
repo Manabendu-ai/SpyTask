@@ -94,7 +94,7 @@ public class TaskServiceImpl implements TaskService {
                 TaskPriority.HIGH,
                 TaskStatus.OPEN,
                 now,
-                now.plusDays(3)
+                now.plusDays(2)
         );
     }
 }

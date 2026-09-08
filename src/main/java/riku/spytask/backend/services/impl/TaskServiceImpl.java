@@ -64,4 +64,16 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByTaskListIdAndId(taskListId, id)
                 .orElseThrow(()->new ResourceNotFoundException("Task Not Found!"));
     }
+
+    @Override
+    public Tasks updateTasksById(UUID taskListId, Tasks tasks) {
+        Tasks upTasks = getTasksById(taskListId, tasks.getId());
+        upTasks.setTitle(tasks.getTitle());
+        upTasks.setDescription(tasks.getDescription());
+        upTasks.setDueDate(tasks.getDueDate());
+        upTasks.setStatus(tasks.getStatus());
+        upTasks.setPriority(tasks.getPriority());
+        upTasks.setUpdatedAt(LocalDateTime.now());
+        return taskRepository.save(upTasks);
+    }
 }

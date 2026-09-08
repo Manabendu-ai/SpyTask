@@ -1,5 +1,6 @@
 package riku.spytask.backend.services.impl;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import riku.spytask.backend.entity.TaskList;
@@ -84,5 +85,16 @@ public class TaskServiceImpl implements TaskService {
         Tasks delTask = getTasksById(taskListId, taskId);
         taskRepository.deleteByTaskListIdAndId(taskListId, taskId);
         return delTask;
+    }
+
+    @Override
+    public List<Tasks> getTasksNeedingAlert() {
+        LocalDateTime now = LocalDateTime.now();
+        return taskRepository.findByPriorityAndStatusAndDueDateBetween(
+                TaskPriority.HIGH,
+                TaskStatus.OPEN,
+                now,
+                now.plusDays(2)
+        );
     }
 }

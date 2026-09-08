@@ -10,4 +10,5 @@ public interface TaskService {
     List<Tasks> getAllTasks(UUID taskListId);
     Tasks getTasksById(UUID taskListId, UUID id);
     Tasks updateTasksById(UUID taskListId, Tasks tasks);
+    Tasks deleteTasksById(UUID taskListId, UUID id);
 }

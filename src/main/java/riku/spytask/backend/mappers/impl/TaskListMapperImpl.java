@@ -66,6 +66,6 @@ public class TaskListMapperImpl implements TaskListMapper {
                 task -> TaskStatus.CLOSED == task.getStatus()
         ).count();
 
-        return (double) (closed_count/tasks.size()) * 100;
+        return (double) (closed_count*100/tasks.size());
     }
 }

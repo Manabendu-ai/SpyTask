@@ -21,4 +21,15 @@ public class TaskListServiceImpl implements TaskListService {
     public List<TaskList> listTaskLists() {
         return taskListRepository.findAll();
     }
+
+    @Override
+    public TaskList createTaskList(TaskList taskList) {
+        if(taskList.getId() != null){
+            throw new IllegalArgumentException("taskList with id: "+taskList.getId()+" Already exists!");
+        }
+        if(taskList.getTitle() == null || taskList.getTitle().isBlank()){
+            throw new IllegalArgumentException("Must enter a Task title");
+        }
+        return taskListRepository.save(taskList);
+    }
 }
